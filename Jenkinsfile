@@ -6,7 +6,7 @@ pipeline {
     }
     
     tools {
-        nodejs 'NodeJS' // Correctly specifying NodeJS tool
+        nodejs 'nodejs' // Correctly specifying NodeJS tool
     }
     
     stages {
