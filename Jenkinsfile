@@ -3,7 +3,7 @@ pipeline {
         node {
             label 'docker-node'
             }
-      }
+    }
 	tools {
 		nodejs 'NodeJS'
 	}
@@ -22,4 +22,4 @@ pipeline {
 			}
 		}
 	}
-	
+
