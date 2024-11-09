@@ -1,5 +1,9 @@
 pipeline {
-	agent any
+	agent { 
+        node {
+            label 'docker-node'
+            }
+      }
 	tools {
 		nodejs 'NodeJS'
 	}
@@ -18,3 +22,4 @@ pipeline {
 			}
 		}
 	}
+	
