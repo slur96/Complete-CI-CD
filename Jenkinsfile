@@ -3,7 +3,7 @@ pipeline {
     tools {
         nodejs 'NodeJS' // specify the correct NodeJS installation name in Jenkins
     }
-    env {
+    environment {
         SONAR_PROJECT_KEY = 'nodejs-project'
         SONAR_SCANNER_HOME = tools 'SonarQubeScanner'
     }
