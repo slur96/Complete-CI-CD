@@ -26,7 +26,7 @@ pipeline {
                 sh 'npm test'
             }
         }
-        stage(SonarQube Analysis) {
+        stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'full-project', variable: 'SONAR_TOKEN')]) {
 
