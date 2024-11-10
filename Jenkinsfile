@@ -32,7 +32,6 @@ pipeline {
 
                     	withSonarQubeEnv('SonarQube') {
     						sh """
-                        /home/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner \
 						${SONAR_SCANNER_HOME}/bin/sonar-scanner \
 						-Dsonar.projectKey=${SONAR_PROJECT_KEY} \
 						-Dsonar.sources=. \
