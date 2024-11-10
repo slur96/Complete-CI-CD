@@ -1,7 +1,8 @@
 pipeline {
     agent any
-        tool name: 'NodeJS' // specify the correct NodeJS installation name in Jenkins
-    
+    tools {
+        nodejs 'NodeJS' // specify the correct NodeJS installation name in Jenkins
+    }
     
     stages {
         stage('GitHub') {
