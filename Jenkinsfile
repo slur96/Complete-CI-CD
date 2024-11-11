@@ -7,7 +7,7 @@ pipeline {
         SONAR_PROJECT_KEY = 'nodejs-project'
         SONAR_SCANNER_HOME = tool 'SonarQubeScanner'
         DOCKER_HUB_REPO = 'samuel78996/nodejs-project'
-        DOCKER_HOST = 'unix:///var/run/docker.sock'
+        // DOCKER_HOST = 'unix:///var/run/docker.sock'
     }
     
     stages {
@@ -30,19 +30,19 @@ pipeline {
                          ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
 						 -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
 						 -Dsonar.sources=. \
-						 -Dsonar.host.url=http://172.187.168.47:9000/ \
+						 -Dsonar.host.url=http://54.224.224.176:9000// \
 					 	 -Dsonar.login=${SONAR_TOKEN}
                          """
                     }
                 }          
             }
         }
-        stage('Docker Build Image') {
-            steps {
-                script {
-                    docker.build("${DOCKER_HUB_REPO}:v1")
-                }
-            }
+       // stage('Docker Build Image') {
+         //   steps {
+           //     script {
+             //       docker.build("${DOCKER_HUB_REPO}:v1")
+               // }
+           // }
         }
     }
 }
