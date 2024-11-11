@@ -43,6 +43,6 @@ pipeline {
              //       docker.build("${DOCKER_HUB_REPO}:v1")
                // }
            // }
-        }
+       // }
     }
 }
