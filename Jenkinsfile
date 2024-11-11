@@ -6,7 +6,7 @@ pipeline {
     environment {
         SONAR_PROJECT_KEY = 'nodejs-project'
         SONAR_SCANNER_HOME = tool 'SonarQubeScanner'
-        DOCKER_HUB_REPO = 'samuel78996/nodejs-project'
+        // DOCKER_HUB_REPO = 'samuel78996/nodejs-project'
         // DOCKER_HOST = 'unix:///var/run/docker.sock'
     }
     
