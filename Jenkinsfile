@@ -9,6 +9,10 @@ pipeline {
         SONAR_SCANNER_HOME = tool 'SonarQubeScanner' 
         DOCKER_HUB_REPO = 'samuel78996/nodejs-project'
         JOB_NAME_NOW = 'node-prod'
+        REGISTRY_NAME = "samuel78996nodeapp.azurecr.io"
+        IMAGE_NAME = "node-app"
+        IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
+        REGISTRY_CREDENTIALS = credentials('acr_id')
     }
 
     stages {
@@ -17,12 +21,14 @@ pipeline {
                 git 'https://github.com/slur96/Complete-CI-CD'
             }
         }
+        
         stage('Unit Test') {
             steps {
                 sh 'npm install'  // Install dependencies first
                 sh 'npm test'
             }
         }
+
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
@@ -37,13 +43,24 @@ pipeline {
                 }
             }
         }
+
         stage('Docker Image') {
             steps {
                 script {
-                    docker.build("${JOB_NAME_NOW}:latest")
+                    docker.build("${REGISTRY_NAME}/${IMAGE_NAME}:${IMAGE_TAG}")
                 }
             }
         }
+
+        stage('Login to ACR') {
+            steps {
+                script {
+                    // Login to ACR
+                    sh "docker login ${REGISTRY_NAME} -u ${REGISTRY_CREDENTIALS_USR} -p ${REGISTRY_CREDENTIALS_PSW}"
+                }
+            }
+        }
+
         stage('Trivy Scan') {
             steps {
                 sh 'trivy --severity HIGH,CRITICAL --no-progress --format table -o trivy-report.html image ${JOB_NAME_NOW}:latest'
