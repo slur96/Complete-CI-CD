@@ -22,7 +22,7 @@ pipeline {
             }
         }
         stage('SonarQube Ananlysis') {
-            steps
+            steps {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                   withSonarQubeEnv('SonarQube') {
                     sh '''
@@ -31,7 +31,8 @@ pipeline {
 						 -Dsonar.sources=. \
 						 -Dsonar.host.url=http://20.90.209.96:8080/ \
 					 	 -Dsonar.login=${SONAR_TOKEN}
-                      '''
+                       '''
+                   }
                }
             }
         }
