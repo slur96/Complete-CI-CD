@@ -21,7 +21,7 @@ pipeline {
                 git 'https://github.com/slur96/Complete-CI-CD'
             }
         }
-        
+
         stage('Unit Test') {
             steps {
                 sh 'npm install'  // Install dependencies first
@@ -56,7 +56,16 @@ pipeline {
             steps {
                 script {
                     // Login to ACR
-                    sh "docker login ${REGISTRY_NAME} -u ${REGISTRY_CREDENTIALS_USR} -p ${REGISTRY_CREDENTIALS_PSW}"
+                    sh "docker login ${REGISTRY_NAME} -u ${REGISTRY_CREDENTIALS_USR} -p-stdin ${REGISTRY_CREDENTIALS_PSW}"
+                }
+            }
+        }
+        
+        stage('Push to ACR') {
+            steps {
+                script {
+                    // Push the image
+                    sh "docker push ${REGISTRY_NAME}/${IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
         }
