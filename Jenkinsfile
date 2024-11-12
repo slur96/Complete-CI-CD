@@ -8,6 +8,7 @@ pipeline {
         SONAR_PROJECT_KEY = 'nodejs-project'
         SONAR_SCANNER_HOME = tool 'SonarQubeScanner' 
         DOCKER_HUB_REPO = 'samuel78996/nodejs-project'
+        JOB_NAME_NOW = 'node-prod'
     }
 
     stages {
@@ -39,8 +40,13 @@ pipeline {
         stage('Docker Image') {
             steps {
                 script {
-                    docker.build("${DOCKER_HUB_REPO}:latest")
+                    docker.build("${JOB_NAME_NOW}:latest")
                 }
+            }
+        }
+        stage('Trivy Scan') {
+            steps {
+                sh 'trivy --severity HIGH, CRITICAL --no-progress --format table -o trivy-report.html image ${JOB_NAME_NOW}:latest'
             }
         }
     }
