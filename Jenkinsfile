@@ -56,7 +56,7 @@ pipeline {
             steps {
                 script {
                     // Login to ACR
-                    sh "docker login ${REGISTRY_NAME} -u ${REGISTRY_CREDENTIALS_USR} -p-stdin ${REGISTRY_CREDENTIALS_PSW}"
+                    sh "docker login ${REGISTRY_NAME} -u ${REGISTRY_CREDENTIALS_USR} --password-stdin ${REGISTRY_CREDENTIALS_PSW}"
                 }
             }
         }
