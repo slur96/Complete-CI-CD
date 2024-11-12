@@ -7,6 +7,7 @@ pipeline {
     environment {
         SONAR_PROJECT_KEY = 'nodejs-project'
         SONAR_SCANNER_HOME = tool 'SonarQubeScanner' 
+        DOCKER_HUB_REPO = 'samuel78996/nodejs-project'
     }
 
     stages {
@@ -32,6 +33,13 @@ pipeline {
                              -Dsonar.login=${SONAR_TOKEN}
                         '''
                     }
+                }
+            }
+        }
+        stage('Docker Image') {
+            steps {
+                script {
+                    docker.build("${DOCKER_HUB_REPO}:latest")
                 }
             }
         }
